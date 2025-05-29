@@ -1,0 +1,12 @@
+{
+	"folders": [
+		{
+			"path": ".."
+		},
+		{
+			"name": "random-word-server",
+			"path": "../../random-word-server"
+		}
+	],
+	"settings": {}
+}
