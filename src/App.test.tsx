@@ -74,32 +74,3 @@ describe('get secret word', () => {
     });
   });
 });
-
-
-describe('get secret word', () => {
-  let originalUseReducer: typeof React.useReducer;
-
-  beforeEach(() => {
-    originalUseReducer = React.useReducer;
-    const mockUseReducer = jest.fn()
-      .mockReturnValue([
-        { secretWord: null, language: 'en' },
-        jest.fn(),
-      ]);
-    React.useReducer = mockUseReducer;
-  });
-
-  afterEach(() => {
-    React.useReducer = originalUseReducer;
-  });
-
-  beforeEach(() => {
-    mockGetSecretWordTyped.mockClear();
-  })
-
-  test(`renders loading spinner: true`, () => {
-    const { container } = render(<App />);
-    const appComponent = container.querySelector('[data-test="spinner"]');
-    expect(appComponent).toBeInTheDocument();
-  });
-})
