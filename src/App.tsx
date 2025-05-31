@@ -1,5 +1,7 @@
 import { useState, useReducer, useEffect } from 'react'
 import { getSecretWord } from './actions';
+import successContext from './contexts/successContext';
+import Input from './Input';
 import './App.css'
 
 type State = {
@@ -23,7 +25,7 @@ const reducer = (state: State, action: Action) => {
   }
 }
 
-function App() {
+const App = () => {
   const [state, dispatch] = useReducer(
     reducer,
     { secretWord: '', language: 'en' } as State
@@ -58,6 +60,9 @@ function App() {
     <div data-test="component-app" className="container">
       <h1>Jotto</h1>
       <p>The secret word is {state.secretWord}</p>
+      <successContext.SuccessProvider>
+        <Input secretWord={state.secretWord} />
+      </successContext.SuccessProvider>
     </div>
   )
 }
