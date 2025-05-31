@@ -1,7 +1,7 @@
-import { createContext, useContext, useMemo, useState } from "react";
+import { createContext, useContext, useMemo, useState, Dispatch, ReactNode } from "react";
 
 const successContext = createContext<
-  (boolean | React.Dispatch<React.SetStateAction<boolean>>)[] | null
+  [boolean, Dispatch<React.SetStateAction<boolean>>] | null
 >(null);
 
 const useSuccess = () => {
@@ -14,10 +14,10 @@ const useSuccess = () => {
   return context;
 }
 
-const SuccessProvider = ({ children }: { children: React.ReactNode }) => {
+const SuccessProvider = ({ children }: { children: ReactNode }) => {
   const [success, setSuccess] = useState(false)
 
-  const value = useMemo(() => [success, setSuccess], [success]);
+  const value = useMemo(() => [success, setSuccess], [success]) as [boolean, Dispatch<React.SetStateAction<boolean>>];
 
   return <successContext.Provider value={value}>
     {children}

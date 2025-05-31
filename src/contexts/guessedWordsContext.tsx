@@ -1,12 +1,12 @@
-import { createContext, useContext, useMemo, useState } from "react";
+import { createContext, useContext, useMemo, useState, Dispatch, ReactNode } from "react";
 
-export type GuessedWordType = {
+type GuessedWordType = {
   guessedWord: string;
   letterMatchCount: number;
 }
 
 const guessedWordsContext = createContext<
-  (GuessedWordType[] | React.Dispatch<React.SetStateAction<GuessedWordType[]>>)[] | null
+  [GuessedWordType[], Dispatch<React.SetStateAction<GuessedWordType[]>>] | null
 >(null);
 
 const useGuessedWords = () => {
@@ -19,10 +19,10 @@ const useGuessedWords = () => {
   return context;
 }
 
-const GuessedWordsProvider = ({ children }: { children: React.ReactNode }) => {
+const GuessedWordsProvider = ({ children }: { children: ReactNode }) => {
   const [guessedWords, setGuessedWords] = useState<GuessedWordType[]>([])
 
-  const value = useMemo(() => [guessedWords, setGuessedWords], [guessedWords]);
+  const value = useMemo(() => [guessedWords, setGuessedWords], [guessedWords]) as [GuessedWordType[], Dispatch<React.SetStateAction<GuessedWordType[]>>];
 
   return <guessedWordsContext.Provider value={value}>
     {children}

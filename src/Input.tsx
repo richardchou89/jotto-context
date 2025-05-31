@@ -4,7 +4,6 @@ import stringsModule from './helpers/strings';
 import { getLetterMatchCount } from "./helpers";
 import languageContext from "./contexts/languageContext";
 import guessedWordsContext from "./contexts/guessedWordsContext";
-import { GuessedWordType } from "./contexts/guessedWordsContext";
 
 type InputProps = {
   secretWord: string;
@@ -12,9 +11,9 @@ type InputProps = {
 
 const Input = ({ secretWord }: InputProps) => {
   const language = useContext(languageContext);
-  const [success, setSuccess] = successContext.useSuccess() as [boolean, Dispatch<SetStateAction<boolean>>];
+  const [success, setSuccess] = successContext.useSuccess();
   const [currentGuess, setCurrentGuess] = useState("");
-  const [guessedWords, setGuessedWords] = guessedWordsContext.useGuessedWords() as [GuessedWordType[], Dispatch<SetStateAction<GuessedWordType[]>>];
+  const [guessedWords, setGuessedWords] = guessedWordsContext.useGuessedWords()
 
   if (success) {
     return <div data-test="component-input" />
@@ -41,8 +40,6 @@ const Input = ({ secretWord }: InputProps) => {
               { guessedWord: currentGuess, letterMatchCount }
             ]
             setGuessedWords(newGuessedWords)
-
-            console.log(`guessedWords`, guessedWords)
 
             if (currentGuess === secretWord) setSuccess(true)
 
