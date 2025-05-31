@@ -1,11 +1,5 @@
 interface LanguageStrings {
-  congrats: string;
-  submit: string;
-  guessPrompt: string;
-  guessInputPlaceholder: string;
-  guessColumnHeader: string;
-  guessedWords: string;
-  matchingLettersColumnHeader: string;
+  [key: string]: string;
 }
 
 const languageStrings: Record<string, LanguageStrings> = {
