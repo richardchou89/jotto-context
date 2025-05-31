@@ -1,6 +1,8 @@
 import { useState, useReducer, useEffect } from 'react'
 import { getSecretWord } from './actions';
 import successContext from './contexts/successContext';
+import guessedWordsContext from './contexts/guessedWordsContext';
+import languageContext from './contexts/languageContext';
 import Input from './Input';
 import './App.css'
 
@@ -60,9 +62,13 @@ const App = () => {
     <div data-test="component-app" className="container">
       <h1>Jotto</h1>
       <p>The secret word is {state.secretWord}</p>
-      <successContext.SuccessProvider>
-        <Input secretWord={state.secretWord} />
-      </successContext.SuccessProvider>
+      <languageContext.Provider value={state.language}>
+        <guessedWordsContext.GuessedWordsProvider>
+          <successContext.SuccessProvider>
+            <Input secretWord={state.secretWord} />
+          </successContext.SuccessProvider>
+        </guessedWordsContext.GuessedWordsProvider>
+      </languageContext.Provider>
     </div>
   )
 }

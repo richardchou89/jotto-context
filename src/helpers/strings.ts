@@ -1,5 +1,3 @@
-type SupportedLanguages = 'en' | 'emoji';
-
 interface LanguageStrings {
   congrats: string;
   submit: string;
@@ -10,7 +8,7 @@ interface LanguageStrings {
   matchingLettersColumnHeader: string;
 }
 
-const languageStrings: Record<SupportedLanguages, LanguageStrings> = {
+const languageStrings: Record<string, LanguageStrings> = {
   en: {
    congrats: 'Congratulations! You guessed the word!',
    submit: 'Submit',
@@ -31,7 +29,7 @@ const languageStrings: Record<SupportedLanguages, LanguageStrings> = {
   }
 }
 
-function getStringByLanguage(languageCode: SupportedLanguages, stringKey: keyof LanguageStrings, strings=languageStrings) {
+function getStringByLanguage(languageCode: string, stringKey: keyof LanguageStrings, strings=languageStrings) {
   if (!strings[languageCode] || !strings[languageCode][stringKey]) {
     console.warn(`Could not get string [${stringKey}] for [${languageCode}]`);
 
