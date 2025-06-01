@@ -1,9 +1,14 @@
 import { createContext, useContext, useMemo, useState, Dispatch, ReactNode } from "react";
 
-type GuessedWordType = {
+export type GuessedWordType = {
   guessedWord: string;
   letterMatchCount: number;
 }
+
+type GuessedWordsProviderProps = {
+  children: ReactNode;
+  value?: [GuessedWordType[], Dispatch<React.SetStateAction<GuessedWordType[]>>];
+} & Omit<React.ComponentProps<typeof guessedWordsContext.Provider>, 'value'>;
 
 const guessedWordsContext = createContext<
   [GuessedWordType[], Dispatch<React.SetStateAction<GuessedWordType[]>>] | null
@@ -19,12 +24,14 @@ const useGuessedWords = () => {
   return context;
 }
 
-const GuessedWordsProvider = ({ children }: { children: ReactNode }) => {
+const GuessedWordsProvider = ({ children, value: overrideValue, ...props }: GuessedWordsProviderProps) => {
   const [guessedWords, setGuessedWords] = useState<GuessedWordType[]>([])
 
-  const value = useMemo(() => [guessedWords, setGuessedWords], [guessedWords]) as [GuessedWordType[], Dispatch<React.SetStateAction<GuessedWordType[]>>];
+  const internalValue = useMemo(() => [guessedWords, setGuessedWords], [guessedWords]) as [GuessedWordType[], Dispatch<React.SetStateAction<GuessedWordType[]>>];
 
-  return <guessedWordsContext.Provider value={value}>
+  const valueToUse = overrideValue ?? internalValue ;
+
+  return <guessedWordsContext.Provider value={valueToUse} {...props}>
     {children}
   </guessedWordsContext.Provider>
 }

@@ -1,4 +1,4 @@
-import { useState, useReducer, useEffect } from 'react'
+import { useReducer, useEffect } from 'react'
 import { getSecretWord } from './actions';
 import successContext from './contexts/successContext';
 import guessedWordsContext from './contexts/guessedWordsContext';
@@ -35,9 +35,6 @@ const App = () => {
     reducer,
     { secretWord: '', language: 'en' } as State
   )
-
-  const success = false;
-  const guessedWords = [];
 
   const setSecretWord = (secretWord: string) => {
     dispatch({ type: 'setSecretWord', payload: secretWord })
