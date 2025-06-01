@@ -1,4 +1,4 @@
-import { useContext, useState, Dispatch, SetStateAction } from "react";
+import { useContext, useState } from "react";
 import successContext from "./contexts/successContext";
 import stringsModule from './helpers/strings';
 import { getLetterMatchCount } from "./helpers";
