@@ -1,23 +1,23 @@
-import { render } from '@testing-library/react';
-import SuccessContext from './successContext'
+import { render } from "@testing-library/react";
+import { SuccessProvider, useSuccess } from "./successContext";
 
 const FunctionalComponent = () => {
-  SuccessContext.useSuccess();
-  return <div />
-}
+  useSuccess();
+  return <div />;
+};
 
-test('useSuccess throws error when not wrapped in SuccessProvider', () => {
+test("useSuccess throws error when not wrapped in SuccessProvider", () => {
   expect(() => render(<FunctionalComponent />)).toThrow(
-    'useSuccess must be used within a SuccessProvider'
-  )
-})
+    "useSuccess must be used within a SuccessProvider"
+  );
+});
 
-test('useSuccess does not throw error when wrapped in SuccessProvider', () => {
+test("useSuccess does not throw error when wrapped in SuccessProvider", () => {
   expect(() =>
     render(
-      <SuccessContext.SuccessProvider>
+      <SuccessProvider>
         <FunctionalComponent />
-      </SuccessContext.SuccessProvider>
+      </SuccessProvider>
     )
   ).not.toThrow();
-})
+});
